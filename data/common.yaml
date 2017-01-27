@@ -1,1 +1,4 @@
 ---
+phpfpm::conf_dir: /etc/php5/fpm
+phpfpm::service: php-fpm
+phpfpm::package: php5-fpm

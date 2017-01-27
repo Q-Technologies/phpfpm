@@ -16,7 +16,7 @@ define phpfpm::pool (
   }
 
   $label = regsubst( $domain_name, '\.', '_', 'G' )
-  file { "${phpfpm::phpfpm_pool_dir}/${domain_name}.conf":
+  file { "${phpfpm::pool_dir}/${domain_name}.conf":
     ensure  => file,
     owner   => 'root',
     group   => 'root',

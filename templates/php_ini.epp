@@ -1,0 +1,6 @@
+#
+# File Managed by Puppet
+#
+<% $php_ini.each | $key, $value | { -%>
+<%= $key %>  = <%= $value %>
+<% } -%>

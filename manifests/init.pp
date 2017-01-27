@@ -1,33 +1,52 @@
 class phpfpm (
-  # Class parameters are populated from module hiera data
+  # These class parameters are populated from module hiera data
+  $service,
+  $package,
+  $conf_dir,
+
+  # These class parameters are populated from global hiera data
+  Data $php_ini = {},
+  String $pool_dir = "${conf_dir}/pool.d",
+  String $conf_file = "${conf_dir}/php-fpm.conf",
+  String $php_ini_file = "${conf_dir}/php.ini",
+
 ){
 
-  $phpfpm_conf_dir = "/etc/php5/fpm/"
-  $phpfpm_pool_dir = "/etc/php5/fpm/pool.d"
-
-  file { "${phpfpm_conf_dir}":
+  file { $conf_dir:
     ensure  => directory,
-  }
-
-  file { "${phpfpm_pool_dir}":
+  } ->
+  file { $pool_dir:
     ensure  => directory,
     recurse => true,
     purge   => true,
-  }
-  file { "${phpfpm_conf_dir}/php-fpm.conf":
+  } ->
+  file { $conf_file:
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    content => epp('phpfpm/phpfpm_conf.epp', { phpfpm_pool_dir => $phpfpm_pool_dir } ),
+    content => epp('phpfpm/phpfpm_conf.epp', { phpfpm_pool_dir => $pool_dir } ),
     notify  => Service['php-fpm'],
   }
-  service { "php-fpm":
+
+  unless empty($php_ini) {
+    file { $php_ini_file:
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0640',
+      content => epp('phpfpm/php_ini.epp', { php_ini => $php_ini } ),
+      notify  => Service['php-fpm'],
+      require => File[$conf_dir],
+    }
+  }
+
+  service { $service:
     ensure  => true,
     enable  => true,
   }
 
-  package { 'php5-fpm':
+  package { $package:
     ensure  => installed,
   }
   
