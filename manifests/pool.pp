@@ -1,3 +1,4 @@
+# Defined type to create an FPM pool
 define phpfpm::pool (
   # Class parameters are populated from module hiera data
   String $domain     = '',
@@ -10,7 +11,7 @@ define phpfpm::pool (
 
   if $name == '' {
     # Puppet won't let this happen anyway, but let's be explicit
-    fail( "Name cannot be blank" )
+    fail( 'Name cannot be blank' )
   }
   if $domain == '' {
     $domain_name = $name

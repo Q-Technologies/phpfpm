@@ -1,3 +1,4 @@
+# Class to manage PHP-FPM
 class phpfpm (
   # Class parameters are populated from module hiera data - but can be overridden by global hiera
   String   $service,
@@ -36,7 +37,7 @@ class phpfpm (
     mode    => '0640',
     notify  => Service['php-fpm'],
     require => File[$conf_dir],
-    content => epp('phpfpm/phpfpm_conf.epp', { 
+    content => epp('phpfpm/phpfpm_conf.epp', {
       phpfpm_pool_dir => $pool_dir,
       pool_ini        => $www_pool_ini,
       log_dir         => $log_dir,
@@ -59,12 +60,12 @@ class phpfpm (
   }
 
   service { $service:
-    ensure  => true,
-    enable  => true,
+    ensure => true,
+    enable => true,
   }
 
   package { $package:
     ensure  => installed,
   }
-  
+
 }
