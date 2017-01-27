@@ -19,7 +19,7 @@ class phpfpm (
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    content => epp('nginx/phpfpm_conf.epp', { phpfpm_pool_dir => $phpfpm_pool_dir } ),
+    content => epp('phpfpm/phpfpm_conf.epp', { phpfpm_pool_dir => $phpfpm_pool_dir } ),
     notify  => Service['php-fpm'],
   }
   service { "php-fpm":
