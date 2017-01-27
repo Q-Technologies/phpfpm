@@ -2,3 +2,40 @@
 phpfpm::conf_dir: /etc/php5/fpm
 phpfpm::service: php-fpm
 phpfpm::package: php5-fpm
+phpfpm::socket_dir: /var/sockets
+phpfpm::pid_dir: /var/run
+phpfpm::log_dir: /var/log/nginx
+phpfpm::www_pool_ini:
+  user: nobody
+  group: nobody
+  listen.mode: '0666'
+  pm: dynamic
+  pm.max_children: 5
+  pm.start_servers: 2
+  pm.min_spare_servers: 1
+  pm.max_spare_servers: 3
+  'env[PATH]': /usr/bin:/bin
+  'env[TMP]': /tmp
+  'env[TMPDIR]': /tmp
+  'env[TEMP]': /tmp
+phpfpm::pool_ini:
+  user: wwwrun
+  group: www
+  listen.backlog: -1
+  listen.mode: '0666'
+  pm: dynamic
+  pm.max_children: 9
+  pm.start_servers: 3
+  pm.min_spare_servers: 2
+  pm.max_spare_servers: 4
+  pm.max_requests: 10000
+  request_slowlog_timeout: 5s
+  slowlog: /var/log/$pool.log.slow
+  request_terminate_timeout: 300s
+  rlimit_files: 131072
+  rlimit_core: unlimited
+  catch_workers_output: 'yes'
+  'env[TMP]': /tmp
+  'env[TMPDIR]': /tmp
+  'env[TEMP]': /tmp
+

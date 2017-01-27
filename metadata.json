@@ -2,13 +2,28 @@
   "name": "qtechnologies/phpfpm",
   "version": "1.0.0",
   "author": "Q-Technologies",
-  "summary": "Puppet module to manage PHP-FPM basic config and pools",
+  "summary": "Puppet module to manage PHP-FPM basic config, php.ini and pools",
   "license": "Apache-2.0",
-  "tags": ["nginx"],
+  "tags": ["nginx","php-fpm","pools"],
   "source": "https://github.com/Q-Technologies/puppet-phpfpm.git",
   "project_page": "https://github.com/Q-Technologies/puppet-phpfpm",
   "issues_url": "https://github.com/Q-Technologies/puppet-phpfpm/issues",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.14.0"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.7.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.0.0"
+    }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "SLES",
