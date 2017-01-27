@@ -1,18 +1,19 @@
 # Class to manage PHP-FPM
 class phpfpm (
   # Class parameters are populated from module hiera data - but can be overridden by global hiera
-  String   $service,
-  String   $package,
-  String   $conf_dir,
-  String   $socket_dir,
-  String   $pid_dir,
-  String   $log_dir,
-  Data     $www_pool_ini,
+  String       $service,
+  String       $package,
+  String       $conf_dir,
+  String       $socket_dir,
+  String       $pid_dir,
+  String       $log_dir,
+  Data         $www_pool_ini,
 
   # These class parameters are populated from global hiera data
-  String   $pool_dir     = "${conf_dir}/pool.d",
-  String   $conf_file    = "${conf_dir}/php-fpm.conf",
-  String   $php_ini_file = "${conf_dir}/php.ini",
+  String       $pool_dir     = "${conf_dir}/pool.d",
+  String       $conf_file    = "${conf_dir}/php-fpm.conf",
+  String       $php_ini_file = "${conf_dir}/php.ini",
+  Collection   $ensure_dirs  = [],
 
 ){
   # Merge the hash from all hiera data
@@ -66,6 +67,12 @@ class phpfpm (
 
   package { $package:
     ensure  => installed,
+  }
+
+  # Ensure requested directories exist
+  $dir_defaults = { ensure => directory, mode => '0750' }
+  unless empty( $ensure_dirs ) {
+    create_resources( file, $ensure_dirs, $dir_defaults )
   }
 
 }
