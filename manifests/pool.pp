@@ -1,7 +1,7 @@
 # Defined type to create an FPM pool
 define phpfpm::pool (
   # Class parameters are populated from module hiera data
-  String $domain     = '',
+  String $web_server_name     = '',
   String $socket_dir = '',
   Data   $pool_ini   = '',
 ){
@@ -13,14 +13,14 @@ define phpfpm::pool (
     # Puppet won't let this happen anyway, but let's be explicit
     fail( 'Name cannot be blank' )
   }
-  if $domain == '' {
-    $domain_name = $name
+  if $web_server_name == '' {
+    $web_server_name_mod = $name
   } else {
-    $domain_name = $domain
+    $web_server_name_mod = $web_server_name
   }
 
-  $label = regsubst( $domain_name, '\.', '_', 'G' )
-  file { "${phpfpm::pool_dir}/${domain_name}.conf":
+  $label = regsubst( $web_server_name_mod, '\.', '_', 'G' )
+  file { "${phpfpm::pool_dir}/${web_server_name_mod}.conf":
     ensure  => file,
     owner   => 'root',
     group   => 'root',
@@ -28,10 +28,10 @@ define phpfpm::pool (
     notify  => Service['php-fpm'],
     require => File[$phpfpm::pool_dir],
     content => epp('phpfpm/phpfpm_pool_conf.epp', {
-      domain     => $domain_name,
-      name       => $label,
-      socket_dir => $socket_dir,
-      pool_ini   => deep_merge( $phpfpm::pool_ini, $pool_ini )
+      web_server_name => $web_server_name_mod,
+      name            => $label,
+      socket_dir      => $socket_dir,
+      pool_ini        => deep_merge( $phpfpm::pool_ini, $pool_ini )
     } ),
   }
 }

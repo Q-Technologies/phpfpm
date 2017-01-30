@@ -2,9 +2,7 @@
 phpfpm::conf_dir: /etc/php5/fpm
 phpfpm::service: php-fpm
 phpfpm::package: php5-fpm
-phpfpm::socket_dir: /var/sockets
 phpfpm::pid_dir: /var/run
-phpfpm::log_dir: /var/log/nginx
 phpfpm::www_pool_ini:
   user: nobody
   group: nobody

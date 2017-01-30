@@ -4,15 +4,15 @@ class phpfpm (
   String       $service,
   String       $package,
   String       $conf_dir,
-  String       $socket_dir,
   String       $pid_dir,
-  String       $log_dir,
   Data         $www_pool_ini,
 
   # These class parameters are populated from global hiera data
   String       $pool_dir     = "${conf_dir}/pool.d",
   String       $conf_file    = "${conf_dir}/php-fpm.conf",
   String       $php_ini_file = "${conf_dir}/php.ini",
+  String       $socket_dir   = $nginx::socket_dir,
+  String       $log_dir      = $nginx::log_dir,
   Collection   $ensure_dirs  = [],
 
 ){

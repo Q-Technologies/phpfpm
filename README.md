@@ -1,7 +1,7 @@
 # puppet-phpfpm
 Puppet module to manage PHP-FPM basic config, php.ini and pools.
 
-It has been designed to fit in nicely with our NGINX module: [qtechnologies/nginx](https://github.com/Q-Technologies/puppet-nginx.git), but it is not a requirement.
+It has been designed to fit in nicely with our Nginx module: [qtechnologies/nginx](https://github.com/Q-Technologies/puppet-nginx.git).  If this Nginx module is installed, this module grabs some parameters from it - things are less likely to break if there's only one source of data - especially for the shared sockets locations.
 
 Currently only tested on SUSE, but other platforms should work with the right hiera data.
 
@@ -52,14 +52,14 @@ phpfpm::pool_ini:
 The global settings will be written whenever the class is included - it is automatically included whenever the pool resource is used.
 
 ### Creating a Pool
-Simply use the defined `phpfpm::pool` resource, like this:
+Simply use the `phpfpm::pool` resource, like this:
 ```puppet
       phpfpm::pool { 'www.example.com': }
 ```
-This will create a pool for the specific domain based on a template.   
+This will create a pool for the specific web server name based on a template.
 
 It also takes the following paramters:
-* `domain` - domain name to use, otherwise use the name
+* `web_server_name` - web server name to use, otherwise use the resource name
 * `socket_dir` - the directory to set up the UNIX sockets in - must match NGINX (does by default)
 * `pool_ini` - can overwrite the global pool ini data.  It is merged, so you only need to specify differences.
 
