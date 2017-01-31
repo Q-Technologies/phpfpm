@@ -7,7 +7,7 @@ Currently only tested on SUSE, but other platforms should work with the right hi
 
 ## Instructions
 ### Global Settings
-You can also overide internal defaults in hiera, if required, e.g.:
+You can also override internal defaults in hiera, if required, e.g.:
 ```yaml
 phpfpm::conf_dir: /etc/php5/fpm
 phpfpm::service: php-fpm
@@ -82,7 +82,7 @@ phpfpm::php_ini:
   session.save_path: '"/var/lib/web-sessions"'
   memory_limit: 256M
 ```
-**NB:** for the strings to be quoted in the `php.ini` they need to be quoted inside single quotes in the hiera data.
+**NB:** *for the strings to be quoted in the `php.ini` they need to be quoted inside single quotes in the hiera data.*
 
 
 ## Issues

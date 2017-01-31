@@ -1,6 +1,6 @@
-#
-# File Managed by Puppet
-#
+;
+; File Managed by Puppet
+;
 [<%= $name %>]
 
 listen = <%= $socket_dir %>/<%= $web_server_name %>.sock

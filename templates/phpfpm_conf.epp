@@ -1,6 +1,6 @@
-#
-# File Managed by Puppet
-#
+;
+; File Managed by Puppet
+;
 [global]
 pid = <%= $pid_dir %>/php-fpm.pid
 error_log = <%= $log_dir %>/php-fpm.log
