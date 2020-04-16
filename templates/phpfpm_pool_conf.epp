@@ -4,9 +4,10 @@
 [<%= $name %>]
 
 listen = <%= $socket_dir %>/<%= $web_server_name %>.sock
+
 env[HOSTNAME] = <%= $web_server_name %>
-<% $pool_ini.each | $key, $value | { -%>
-<%= $key %> = <%= $value %>
+<% $pool_ini.keys.each | $key | { -%>
+<%= $key %> = <%= $pool_ini[$key] %>
 <% } -%>
 
 

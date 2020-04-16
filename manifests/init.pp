@@ -6,9 +6,11 @@ class phpfpm (
   String       $conf_dir,
   String       $pid_dir,
   Data         $www_pool_ini,
+  Boolean  $install_package,
+  Boolean  $start_service,
 
   # These class parameters are populated from global hiera data
-  String       $pool_dir     = "${conf_dir}/pool.d",
+  String       $pool_dir     = "${conf_dir}/php-fpm.d",
   String       $conf_file    = "${conf_dir}/php-fpm.conf",
   String       $php_ini_file = "${conf_dir}/php.ini",
   String       $socket_dir   = $nginx::socket_dir,
@@ -60,13 +62,17 @@ class phpfpm (
     }
   }
 
-  service { $service:
-    ensure => true,
-    enable => true,
+  if $start_service {
+    service { $service:
+      ensure => true,
+      enable => true,
+    }
   }
 
-  package { $package:
-    ensure  => installed,
+  if $install_package {
+    package { $package:
+      ensure  => installed,
+    }
   }
 
   # Ensure requested directories exist

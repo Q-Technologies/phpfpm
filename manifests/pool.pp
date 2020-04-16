@@ -3,7 +3,7 @@ define phpfpm::pool (
   # Class parameters are populated from module hiera data
   String $web_server_name     = '',
   String $socket_dir = '',
-  Data   $pool_ini   = '',
+  Data   $pool_ini   = {},
 ){
 
   include phpfpm
@@ -20,6 +20,7 @@ define phpfpm::pool (
   }
 
   $label = regsubst( $web_server_name_mod, '\.', '_', 'G' )
+  $pool_ini_settings = deep_merge( $phpfpm::pool_ini, $pool_ini )
   file { "${phpfpm::pool_dir}/${web_server_name_mod}.conf":
     ensure  => file,
     owner   => 'root',
@@ -31,7 +32,8 @@ define phpfpm::pool (
       web_server_name => $web_server_name_mod,
       name            => $label,
       socket_dir      => $socket_dir,
-      pool_ini        => deep_merge( $phpfpm::pool_ini, $pool_ini )
+      pool_ini        => $pool_ini_settings
     } ),
   }
+
 }

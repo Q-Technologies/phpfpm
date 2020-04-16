@@ -1,16 +1,35 @@
 ;
 ; File Managed by Puppet
 ;
+;;;;;;;;;;;;;;;;;;
+; Global Options ;
+;;;;;;;;;;;;;;;;;;
 [global]
+; Pid file
 pid = <%= $pid_dir %>/php-fpm.pid
+; Error log file
 error_log = <%= $log_dir %>/php-fpm.log
+; Log level
+;log_level = notice
+; The maximum number of processes FPM will fork.
+;process.max = 0
+; Set open file descriptor rlimit for the master process.
+;rlimit_files = 1024
+; Set max core size rlimit for the master process.
+;rlimit_core = 0
+; The interval between health report notification to systemd.
+;systemd_interval = 10
 
+;;;;;;;;;;;;;;;;;;;;
+; Pool Definitions ;
+;;;;;;;;;;;;;;;;;;;;
+include=<%= $phpfpm_pool_dir %>/*.conf
+
+; General Purpose pool
 [www]
 listen = <%= $socket_dir %>/php_fpm.sock
 env[HOSTNAME] = $HOSTNAME
 <% $pool_ini.each | $key, $value | { -%>
 <%= $key %> = <%= $value %>
 <% } -%>
-
-include=<%= $phpfpm_pool_dir %>/*.conf
 

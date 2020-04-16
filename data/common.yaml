@@ -1,7 +1,9 @@
 ---
-phpfpm::conf_dir: /etc/php5/fpm
+phpfpm::conf_dir: /etc/php7/fpm
 phpfpm::service: php-fpm
-phpfpm::package: php5-fpm
+phpfpm::package: php7-fpm
+phpfpm::install_package: true
+phpfpm::start_service: true
 phpfpm::pid_dir: /var/run
 phpfpm::www_pool_ini:
   user: nobody
@@ -17,6 +19,10 @@ phpfpm::www_pool_ini:
   'env[TMPDIR]': /tmp
   'env[TEMP]': /tmp
 phpfpm::pool_ini:
+  #'env[PATH]': /usr/local/bin:/usr/bin:/bin
+  'env[TMP]': /tmp
+  'env[TMPDIR]': /tmp
+  'env[TEMP]': /tmp
   user: wwwrun
   group: www
   listen.backlog: -1
@@ -33,7 +39,4 @@ phpfpm::pool_ini:
   rlimit_files: 131072
   rlimit_core: unlimited
   catch_workers_output: 'yes'
-  'env[TMP]': /tmp
-  'env[TMPDIR]': /tmp
-  'env[TEMP]': /tmp
 
