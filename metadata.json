@@ -1,10 +1,9 @@
 {
-  "name": "qtechnologies/phpfpm",
+  "name": "qtechnologies-phpfpm",
   "version": "1.0.3",
   "author": "Q-Technologies",
   "summary": "Puppet module to manage PHP-FPM basic config, php.ini and pools",
   "license": "Apache-2.0",
-  "tags": ["nginx","php-fpm","pools"],
   "source": "https://github.com/Q-Technologies/puppet-phpfpm.git",
   "project_page": "https://github.com/Q-Technologies/puppet-phpfpm",
   "issues_url": "https://github.com/Q-Technologies/puppet-phpfpm/issues",
@@ -12,6 +11,16 @@
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.14.0"
+    }
+  ],
+  "data_provider": "hiera",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "SLES",
+      "operatingsystemrelease": [
+        "11",
+        "12"
+      ]
     }
   ],
   "requirements": [
@@ -24,15 +33,12 @@
       "version_requirement": ">= 4.0.0"
     }
   ],
-  "operatingsystem_support": [
-    {
-      "operatingsystem": "SLES",
-      "operatingsystemrelease": [ 
-        "11",
-        "12"
-     ]
-    }
+  "tags": [
+    "nginx",
+    "php-fpm",
+    "pools"
   ],
-  "data_provider": "hiera"
+  "pdk-version": "1.17.0",
+  "template-url": "pdk-default#1.17.0",
+  "template-ref": "tags/1.17.0-0-gd3a4319"
 }
-
