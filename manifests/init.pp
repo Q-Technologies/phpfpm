@@ -25,8 +25,8 @@ class phpfpm (
   # Make sure the parent directory exist - plus manage all the pools in a directory
   file { $conf_dir:
     ensure  => directory,
-  } ->
-  file { $pool_dir:
+  }
+  -> file { $pool_dir:
     ensure  => directory,
     recurse => true,
     purge   => true,
